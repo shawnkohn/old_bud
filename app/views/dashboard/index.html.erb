@@ -1,12 +1,13 @@
 <header>
-<h1>
-    Welcome, <%= current_user.email %> 
-</h1>
-<h2>
-    We're using Rails <%= Rails.version %>
-</h2>
-<section>
-<p>
-Future Home of Budget Dashboard
-</p>
-</section>
+    <h1>
+        Welcome, <%= current_user.email %> 
+    </h1>
+    <h2>
+        We're using Rails <%= Rails.version %>
+    </h2>
+    <section>
+        <p>
+            Future Home of Budget Dashboard
+        </p>
+        <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+    </section>
