@@ -4,6 +4,10 @@ app.controller("CustomerSearchController", [
        function($scope, $http) {
            $scope.customers = [];
            $scope.search = function(searchTerm) {
+               if(searchTerm.length < 3) {
+                   $scope.customers = [];
+                   return;
+               }
                $http.get("/customers.json",
                    { "params": { "keywords": searchTerm } }
                    ).success (
