@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028222812) do
+ActiveRecord::Schema.define(version: 20151030010452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "budgets", force: :cascade do |t|
+    t.decimal  "amount_for_monthly_financial_goals",          precision: 12, scale: 2, default: 0.0
+    t.decimal  "amount_for_non_monthly_expenses",             precision: 12, scale: 2, default: 0.0
+    t.boolean  "calculate_biweekly_income_using_two_periods"
+    t.boolean  "use_biweekly_extra_for_non_monthly_expenses"
+    t.integer  "user_id"
+    t.datetime "created_at",                                                                         null: false
+    t.datetime "updated_at",                                                                         null: false
+  end
+
+  add_index "budgets", ["user_id"], name: "index_budgets_on_user_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string   "first_name", null: false
@@ -46,4 +58,5 @@ ActiveRecord::Schema.define(version: 20151028222812) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "budgets", "users"
 end
